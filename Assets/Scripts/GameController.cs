@@ -9,7 +9,8 @@ public class GameController : MonoBehaviour
 {
     public GameObject menu;
     public GameObject nextLvBtn;
-    public Text txtPoint;
+    public Text txtPoint, enemiesNumber;
+    public GameObject txtVictory;
     public AudioClip victorySound;
 
     public GameObject enemyParent;
@@ -23,16 +24,23 @@ public class GameController : MonoBehaviour
         menu.SetActive(false);
         if (SceneManager.GetActiveScene().name != "Endless")
         {
-            currentPoint = enemyParent.transform.childCount;
-            txtPoint.text = currentPoint.ToString();
+            txtPoint.gameObject.SetActive(false);
         }
+        enemiesNumber.text = enemyParent.transform.childCount.ToString();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (enemyParent.transform.childCount == 0)
-            CompleteLevel();
+        if (SceneManager.GetActiveScene().name != "Endless")
+        {
+            if (enemyParent.transform.childCount == 0)
+                CompleteLevel();
+        }
+        else
+        {
+            enemiesNumber.text = enemyParent.transform.childCount.ToString();
+        }
 #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.N))
         {
@@ -50,8 +58,7 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            currentPoint = enemyParent.transform.childCount;
-            txtPoint.text = currentPoint.ToString();
+            enemiesNumber.text = enemyParent.transform.childCount.ToString();
         }
     }
 
@@ -61,6 +68,7 @@ public class GameController : MonoBehaviour
         gameObject.GetComponent<AudioSource>().clip = victorySound;
         gameObject.GetComponent<AudioSource>().Play();
         menu.SetActive(true);
+        txtVictory.SetActive(true);
         nextLvBtn.SetActive(true);
         int currentLv = int.Parse(SceneManager.GetActiveScene().name);
         if (currentLv >= PlayerPrefs.GetInt("LevelProgress"))

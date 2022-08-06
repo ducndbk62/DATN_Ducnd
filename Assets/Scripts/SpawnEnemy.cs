@@ -7,8 +7,10 @@ public class SpawnEnemy : MonoBehaviour
     public GameObject opponentTank;
     public GameObject player;
     GameObject[] spawnPoint;
+    public Transform spawnParent;
     public float minSpawnTime;
     public float maxSpawnTime;
+
     private float lastSpawnTime;
     private float spawnTime;
 
@@ -27,7 +29,7 @@ public class SpawnEnemy : MonoBehaviour
     void Spawn()
     {
         int point = Random.Range(0, spawnPoint.Length);
-        Instantiate(opponentTank, spawnPoint[point].transform.position, Quaternion.identity);
+        Instantiate(opponentTank, spawnPoint[point].transform.position, Quaternion.identity, spawnParent);
         UpdateSpawnTime();
     }
 

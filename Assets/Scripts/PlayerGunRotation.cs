@@ -18,23 +18,23 @@ public class PlayerGunRotation : MonoBehaviour
     {
         if (joystick.Horizontal < -0.2f)
         {
-            transform.Rotate(Vector3.up, -gunRotateSpeed.y * Time.deltaTime);
+            transform.Rotate(Vector3.up, -gunRotateSpeed.y * Mathf.Abs(joystick.Horizontal) * Time.deltaTime);
         }
         if (joystick.Horizontal > 0.2f)
         {
-            transform.Rotate(Vector3.up, gunRotateSpeed.y * Time.deltaTime);
+            transform.Rotate(Vector3.up, gunRotateSpeed.y * Mathf.Abs(joystick.Horizontal) * Time.deltaTime);
         }
 
         if (joystick.Vertical > 0.2f)
         {
             if (transform.rotation.x > -0.035f)
-                transform.Rotate(Vector3.right, -gunRotateSpeed.x * Time.deltaTime);
+                transform.Rotate(Vector3.right, -gunRotateSpeed.x * Mathf.Abs(joystick.Vertical) * Time.deltaTime);
         }
 
         if (joystick.Vertical < -0.2f)
         {
             if (transform.rotation.x < 0.03f)
-                transform.Rotate(Vector3.right, gunRotateSpeed.x * Time.deltaTime);
+                transform.Rotate(Vector3.right, gunRotateSpeed.x * Mathf.Abs(joystick.Vertical) * Time.deltaTime);
         }
     }
 }
